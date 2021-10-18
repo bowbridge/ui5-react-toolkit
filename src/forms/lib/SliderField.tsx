@@ -9,7 +9,6 @@ export interface SliderFieldProps extends BaseFieldProps, SliderPropTypes {}
 export const SliderField = ({
   methods,
   fieldName,
-  style,
   ...props
 }: SliderFieldProps) => {
   return (

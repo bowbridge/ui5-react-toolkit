@@ -1,5 +1,4 @@
 import { ColorPicker } from '@ui5/webcomponents-react';
-import { spacing } from '@ui5/webcomponents-react-base';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { ColorPickerPropTypes } from '@ui5/webcomponents-react/webComponents/ColorPicker';
@@ -21,8 +20,6 @@ export const ColorPickerField = ({
 }: ColorPickerFieldProps) => {
   const innerStyle = {
     ...style,
-    width: '100%',
-    ...spacing.sapUiTinyMarginBottom,
   };
   return (
     <Controller

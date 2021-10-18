@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { RenderFiledProps, FieldType } from '../types';
+import { FieldType } from '../types/form/fieldmap';
+import { RenderFieldProps } from '../types';
 import { useFormContext } from 'react-hook-form';
 
 import { InputField } from '../lib/InputField';
@@ -21,13 +22,15 @@ import { RadioButtonField } from '../lib/RadioButtonField';
 import { ComboBoxField } from '../lib/ComboBoxField';
 import { MultiComboBoxField } from '../lib/MultiComboBoxField';
 
-export const RenderField = (props: RenderFiledProps<FieldType>) => {
+export const RenderField = (
+  props: Omit<RenderFieldProps<FieldType>, 'labelProps'>
+) => {
   const methods = useFormContext();
 
   const { fieldtype } = props;
 
   if (fieldtype === 'input') {
-    const { fieldProps } = props as RenderFiledProps<'input'>;
+    const { fieldProps } = props as RenderFieldProps<'input'>;
 
     return (
       <>
@@ -37,7 +40,7 @@ export const RenderField = (props: RenderFiledProps<FieldType>) => {
   }
 
   if (fieldtype === 'switch') {
-    const { fieldProps } = props as RenderFiledProps<'switch'>;
+    const { fieldProps } = props as RenderFieldProps<'switch'>;
 
     return (
       <>
@@ -47,7 +50,7 @@ export const RenderField = (props: RenderFiledProps<FieldType>) => {
   }
 
   if (fieldtype === 'select') {
-    const { fieldProps } = props as RenderFiledProps<'select'>;
+    const { fieldProps } = props as RenderFieldProps<'select'>;
 
     return (
       <>
@@ -57,7 +60,7 @@ export const RenderField = (props: RenderFiledProps<FieldType>) => {
   }
 
   if (fieldtype === 'checkbox') {
-    const { fieldProps } = props as RenderFiledProps<'checkbox'>;
+    const { fieldProps } = props as RenderFieldProps<'checkbox'>;
 
     return (
       <>
@@ -67,7 +70,7 @@ export const RenderField = (props: RenderFiledProps<FieldType>) => {
   }
 
   if (fieldtype === 'stepinput') {
-    const { fieldProps } = props as RenderFiledProps<'stepinput'>;
+    const { fieldProps } = props as RenderFieldProps<'stepinput'>;
 
     return (
       <>
@@ -77,7 +80,7 @@ export const RenderField = (props: RenderFiledProps<FieldType>) => {
   }
 
   if (fieldtype === 'slider') {
-    const { fieldProps } = props as RenderFiledProps<'slider'>;
+    const { fieldProps } = props as RenderFieldProps<'slider'>;
 
     return (
       <>
@@ -87,7 +90,7 @@ export const RenderField = (props: RenderFiledProps<FieldType>) => {
   }
 
   if (fieldtype === 'textarea') {
-    const { fieldProps } = props as RenderFiledProps<'textarea'>;
+    const { fieldProps } = props as RenderFieldProps<'textarea'>;
 
     return (
       <>
@@ -97,7 +100,7 @@ export const RenderField = (props: RenderFiledProps<FieldType>) => {
   }
 
   if (fieldtype === 'datepicker') {
-    const { fieldProps } = props as RenderFiledProps<'datepicker'>;
+    const { fieldProps } = props as RenderFieldProps<'datepicker'>;
 
     return (
       <>
@@ -107,7 +110,7 @@ export const RenderField = (props: RenderFiledProps<FieldType>) => {
   }
 
   if (fieldtype === 'datetimepicker') {
-    const { fieldProps } = props as RenderFiledProps<'datetimepicker'>;
+    const { fieldProps } = props as RenderFieldProps<'datetimepicker'>;
 
     return (
       <>
@@ -117,7 +120,7 @@ export const RenderField = (props: RenderFiledProps<FieldType>) => {
   }
 
   if (fieldtype === 'timepicker') {
-    const { fieldProps } = props as RenderFiledProps<'timepicker'>;
+    const { fieldProps } = props as RenderFieldProps<'timepicker'>;
 
     return (
       <>
@@ -127,7 +130,7 @@ export const RenderField = (props: RenderFiledProps<FieldType>) => {
   }
 
   if (fieldtype === 'colorpicker') {
-    const { fieldProps } = props as RenderFiledProps<'colorpicker'>;
+    const { fieldProps } = props as RenderFieldProps<'colorpicker'>;
 
     return (
       <>
@@ -137,7 +140,7 @@ export const RenderField = (props: RenderFiledProps<FieldType>) => {
   }
 
   if (fieldtype === 'daterangepicker') {
-    const { fieldProps } = props as RenderFiledProps<'daterangepicker'>;
+    const { fieldProps } = props as RenderFieldProps<'daterangepicker'>;
 
     return (
       <>
@@ -147,7 +150,7 @@ export const RenderField = (props: RenderFiledProps<FieldType>) => {
   }
 
   if (fieldtype === 'ratingindicator') {
-    const { fieldProps } = props as RenderFiledProps<'ratingindicator'>;
+    const { fieldProps } = props as RenderFieldProps<'ratingindicator'>;
 
     return (
       <>
@@ -157,7 +160,7 @@ export const RenderField = (props: RenderFiledProps<FieldType>) => {
   }
 
   if (fieldtype === 'rangeslider') {
-    const { fieldProps } = props as RenderFiledProps<'rangeslider'>;
+    const { fieldProps } = props as RenderFieldProps<'rangeslider'>;
 
     return (
       <>
@@ -167,7 +170,7 @@ export const RenderField = (props: RenderFiledProps<FieldType>) => {
   }
 
   if (fieldtype === 'radiobutton') {
-    const { fieldProps } = props as RenderFiledProps<'radiobutton'>;
+    const { fieldProps } = props as RenderFieldProps<'radiobutton'>;
 
     return (
       <>
@@ -177,7 +180,7 @@ export const RenderField = (props: RenderFiledProps<FieldType>) => {
   }
 
   if (fieldtype === 'combobox') {
-    const { fieldProps } = props as RenderFiledProps<'combobox'>;
+    const { fieldProps } = props as RenderFieldProps<'combobox'>;
 
     return (
       <>
@@ -187,7 +190,7 @@ export const RenderField = (props: RenderFiledProps<FieldType>) => {
   }
 
   if (fieldtype === 'multicombobox') {
-    const { fieldProps } = props as RenderFiledProps<'multicombobox'>;
+    const { fieldProps } = props as RenderFieldProps<'multicombobox'>;
 
     return (
       <>

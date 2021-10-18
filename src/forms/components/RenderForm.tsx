@@ -1,17 +1,22 @@
-import React from "react";
-import { FormMetaType, RenderFormRef } from "../types";
-import { ObjectSchema } from "yup";
-import { forwardRef, useImperativeHandle, useEffect } from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { RenderField } from "./RenderField";
-import { yupResolver } from "@hookform/resolvers/yup";
+import React from 'react';
+import { FormMetaType, RenderFormRef } from '../types';
+import { ObjectSchema } from 'yup';
+import { forwardRef, useImperativeHandle, useEffect } from 'react';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { RenderField } from './RenderField';
+import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Button,
   ButtonDesign,
-  FlexBox,
-  FlexBoxDirection,
-} from "@ui5/webcomponents-react";
-import "@ui5/webcomponents/dist/features/InputElementsFormSupport.js";
+  Form,
+  Toolbar,
+  ToolbarSpacer,
+  ToolbarStyle,
+  FormItem,
+  Label,
+  FormGroup,
+} from '@ui5/webcomponents-react';
+import '@ui5/webcomponents/dist/features/InputElementsFormSupport.js';
 
 export interface RenderFormProps {
   fields: FormMetaType<any>;
@@ -40,7 +45,8 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
     const { reset, setValue } = methods;
 
     useImperativeHandle(ref, () => ({
-      resetForm() {        
+      resetForm() {
+        console.log('Form Reseting...');
         reset();
       },
     }));
@@ -58,48 +64,43 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
 
     return (
       <FormProvider {...methods}>
-        <form>
-          <FlexBox direction={FlexBoxDirection.Column}>
-            {fields && fields.map((field, index) => (
-              <div key={index}>
-                <RenderField
-                  labelProps={field.labelProps}
-                  fieldtype={field.fieldtype}
-                  fieldProps={field.fieldProps}
-                />
-              </div>
-            ))}
-
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: "2rem",
-              }}
-            >
-              <Button
-                design={ButtonDesign.Negative}
-                color="error"
-                onClick={onCancel}
-              >
-                Cancel
-              </Button>
-              <Button
-                design={ButtonDesign.Emphasized}
-                onClick={() => methods.reset()}
-              >
-                Reset
-              </Button>
-              <Button
-                onClick={methods.handleSubmit(onSubmit)}
-                design={ButtonDesign.Default}
-              >
-                {editMode ? "Update" : "Create"}
-              </Button>
-            </div>
-          </FlexBox>
-        </form>
+        <Form titleText="Test Form">
+          <FormGroup titleText="Personal Data">
+            {fields && <FormItemContainer fields={fields} />}
+          </FormGroup>
+        </Form>
+        <Toolbar toolbarStyle={ToolbarStyle.Clear}>
+          <ToolbarSpacer />
+          <Button onClick={methods.handleSubmit(onSubmit)}>
+            {editMode ? 'Update' : 'Create'}
+          </Button>
+          <Button design={ButtonDesign.Transparent} onClick={onCancel}>
+            Cancel
+          </Button>
+        </Toolbar>
       </FormProvider>
     );
   }
 );
+
+const FormItemContainer = ({ fields }: { fields: FormMetaType<any> }) => {
+  return (
+    <>
+      {fields.map((field, index) => {
+        const { fieldLabel, ...labelProps } = field.labelProps;
+
+        return (
+          <FormItem
+            key={index}
+            label={<Label {...labelProps}>{fieldLabel}</Label>}
+          >
+            <RenderField
+              fieldtype={field.fieldtype}
+              fieldProps={field.fieldProps}
+            />
+          </FormItem>
+        );
+      })}
+    </>
+  );
+};

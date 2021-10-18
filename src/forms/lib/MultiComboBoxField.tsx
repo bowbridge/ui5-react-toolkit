@@ -4,7 +4,6 @@ import {
   MultiComboBoxItem,
   ValueState,
 } from '@ui5/webcomponents-react';
-import { spacing } from '@ui5/webcomponents-react-base';
 import { Controller } from 'react-hook-form';
 
 import { MultiComboBoxPropTypes } from '@ui5/webcomponents-react/webComponents/MultiComboBox';
@@ -32,7 +31,6 @@ export const MultiComboBoxField = ({
 }: MultiComboBoxFieldProps) => {
   const innerStyle = {
     ...style,
-    ...spacing.sapUiTinyMarginBottom,
   };
 
   return (

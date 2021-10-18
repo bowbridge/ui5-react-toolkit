@@ -1,5 +1,4 @@
 import React from 'react';
-import { spacing } from '@ui5/webcomponents-react-base';
 import { Controller } from 'react-hook-form';
 import { RatingIndicator } from '@ui5/webcomponents-react';
 import { RatingIndicatorPropTypes } from '@ui5/webcomponents-react/webComponents/RatingIndicator';
@@ -17,8 +16,6 @@ export const RatingIndicatorField = ({
 }: RatingIndicatorFieldProps) => {
   const innerStyle = {
     ...style,
-    width: '100%',
-    ...spacing.sapUiTinyMarginBottom,
   };
 
   return (

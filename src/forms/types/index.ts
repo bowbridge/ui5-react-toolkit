@@ -3,16 +3,16 @@ import { BaseFieldPropsWithoutMethod } from './form/baseprops';
 import { FieldType, FieldPropsMap } from './form/fieldmap';
 
 export interface FieldLabelProps extends LabelPropTypes {
-  labelName: string;
+  fieldLabel: string;
 }
 
-export interface RenderFiledProps<T extends FieldType, S = any> {
+export interface RenderFieldProps<T extends FieldType, S = any> {
   fieldtype: T;
-  labelProps?: FieldLabelProps; // this property can be deleted
+  labelProps: FieldLabelProps;
   fieldProps: FieldPropsMap[T] & BaseFieldPropsWithoutMethod<keyof S>;
 }
 
-export type FormMetaType<S> = RenderFiledProps<FieldType, S>[];
+export type FormMetaType<S> = RenderFieldProps<FieldType, S>[];
 
 export type RenderFormRef = {
   resetForm: () => void;

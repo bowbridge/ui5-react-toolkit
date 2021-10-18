@@ -3,20 +3,16 @@ import { FormMetaType, RenderFormRef } from '../types';
 import { SchemaOf, string, object, number, boolean } from 'yup';
 import { RenderForm } from '../components/RenderForm';
 import { SubmitHandler } from 'react-hook-form';
-import {
-  FlexBox,
-  FlexBoxAlignItems,
-  FlexBoxJustifyContent,
-} from '@ui5/webcomponents-react';
 
 type Person = {
   firstname: string;
-  active: boolean;
   /*  lastname: string;
+  color: string;
+  active: boolean;
   email: string;
   age: number;
-  schoolId: string; */
   count: number;
+  schoolId: string; */
 };
 
 /* const person: Person = {
@@ -32,14 +28,15 @@ type Person = {
 const validationSchema: SchemaOf<Person> = object({
   firstname: string().required('Please Enter FirstName'),
   /*  lastname: string().required("Please Enter LastName"),
+  color: string().required('Please Choose the Color'),
   email: string().email().required("Please Provide the Email"),
   age: number()
     .typeError("Please Enter the Age")
     .required("Age must be a number")
     .positive(),
+    count: number().typeError('Please Enter the Count').required(),
+    active: boolean().required(),
     schoolId: string().required("Select Field Required"), */
-  count: number().typeError('Please Enter the Count').required(),
-  active: boolean().required(),
 });
 
 /* 
@@ -48,117 +45,73 @@ MultiInput
 
 export const fields: FormMetaType<Person> = [
   {
-    fieldtype: 'multicombobox',
+    fieldtype: 'timepicker',
+    labelProps: {
+      fieldLabel: 'Firstname',
+    },
     fieldProps: {
       fieldName: 'firstname',
-      options: [
-        {
-          text: 'India',
-        },
-        { text: 'Germany' },
-        { text: 'France' },
-        { text: 'Belgium' },
-        { text: 'Italy' },
-        { text: 'Sweden' },
-        { text: 'Norway' },
-      ],
-    },
-  },
-  /* 
-  {
-    fieldtype: "input",
-    labelProps: {
-      labelName: "Lastname",
-      required: true,
-    },
-    fieldProps: {
-      fieldName: "lastname",
-    },
-  },
-    {
-    fieldtype: "input",
-    labelProps: {
-      labelName: "Email",
-      required: true,
-    },
-    fieldProps: {
-      fieldName: "email",
-    },
-  }, 
-  {
-    fieldtype: "input",
-    labelProps: {
-      labelName: "Age",
-      required: true,
-    },
-    fieldProps: {
-      fieldName: "age",
-    },
-  },
-    {
-    fieldtype: "select",
-    labelProps: {
-      labelName: "School",
-    },
-    fieldProps: {
-      fieldName: "schoolId",
-      options: [
-        {
-          value: "pre",
-          label: "Pre School",
-        },
-        {
-          value: "sec",
-          label: "Secondary School",
-        },
-        {
-          value: "high",
-          label: "Higher Secondary School",
-        },
-      ],
-    },
-  }, */
-  {
-    fieldtype: 'switch',
-    fieldProps: {
-      fieldName: 'active',
+      showTickmarks: true,
       style: {
-        width: '50px',
+        width: '210px',
+      },
+    },
+  },
+  /*   {
+    fieldtype: 'slider',
+    labelProps: {
+      fieldLabel: 'Count',
+    },
+    fieldProps: {
+      fieldName: 'count',
+      style: {
+        width: '210px',
+        paddingLeft: '1rem',
+        paddingRight: '1rem',
       },
     },
   },
   {
-    fieldtype: 'slider',
+    fieldtype: 'checkbox',
+    labelProps: {
+      fieldLabel: 'Active',
+    },
     fieldProps: {
-      fieldName: 'count',
-      step: 10,
+      fieldName: 'active',
     },
   },
+  {
+    fieldtype: 'datepicker',
+    labelProps: {
+      fieldLabel: 'Color',
+    },
+    fieldProps: {
+      fieldName: 'color',
+    },
+  }, */
 ];
 
 export const PersonForm = () => {
   const onSubmit: SubmitHandler<Person> = (data) => {
     console.log(data);
-    //renderFormRef.current?.resetForm();
+    formResetHandler();
+  };
+
+  const formResetHandler = (): void => {
+    renderFormRef.current?.resetForm();
   };
 
   const renderFormRef = useRef<RenderFormRef>(null);
   return (
-    <FlexBox
-      fitContainer
-      justifyContent={FlexBoxJustifyContent.Center}
-      alignItems={FlexBoxAlignItems.Center}
-    >
-      <FlexBox style={{ width: '200px' }}>
-        <RenderForm
-          editMode={false}
-          ref={renderFormRef}
-          fields={fields}
-          onSubmit={onSubmit}
-          validationSchema={validationSchema}
-        />
-      </FlexBox>
-    </FlexBox>
+    <>
+      <RenderForm
+        editMode={false}
+        ref={renderFormRef}
+        fields={fields}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+      />
+    </>
   );
 };
 

@@ -25,8 +25,6 @@ export const RadioButtonField = ({
 }: RadioButtonFieldProps) => {
   const innerStyle = {
     ...style,
-    width: '100%',
-    ...spacing.sapUiTinyMarginBottom,
   };
 
   return (

@@ -1,5 +1,4 @@
 import { ComboBox, ComboBoxItem, ValueState } from '@ui5/webcomponents-react';
-import { spacing } from '@ui5/webcomponents-react-base';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { ComboBoxPropTypes } from '@ui5/webcomponents-react/webComponents/ComboBox';
@@ -19,8 +18,6 @@ export const ComboBoxField = ({
 }: ComboBoxFieldProps) => {
   const innerStyle = {
     ...style,
-    width: '100%',
-    ...spacing.sapUiTinyMarginBottom,
   };
 
   return (
