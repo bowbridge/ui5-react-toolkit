@@ -3,7 +3,8 @@ import { FlexBox, RadioButton, ValueState } from '@ui5/webcomponents-react';
 import { spacing } from '@ui5/webcomponents-react-base';
 import { Controller } from 'react-hook-form';
 import { RadioButtonPropTypes } from '@ui5/webcomponents-react/webComponents/RadioButton';
-import { BaseFieldProps, InputOptionsType } from '../types/form/baseprops';
+import { BaseFieldProps } from '../types/form/baseprops';
+import { InputOptionsType } from '../types/form/options';
 
 export interface RadioButtonFieldProps
   extends BaseFieldProps,

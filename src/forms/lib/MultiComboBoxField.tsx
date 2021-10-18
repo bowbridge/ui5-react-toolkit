@@ -9,13 +9,14 @@ import { Controller } from 'react-hook-form';
 
 import { MultiComboBoxPropTypes } from '@ui5/webcomponents-react/webComponents/MultiComboBox';
 import { MultiComboBoxItemPropTypes } from '@ui5/webcomponents-react/webComponents/MultiComboBoxItem';
-import { BaseFieldProps, InputOptionsType } from '../types/form/baseprops';
+import { BaseFieldProps } from '../types/form/baseprops';
+import { InputOptionsType } from '../types/form/options';
 
 export interface MultiComboBoxFieldProps
   extends BaseFieldProps,
     MultiComboBoxPropTypes {
   options: InputOptionsType[];
-  itemProps: MultiComboBoxItemPropTypes;
+  itemProps?: MultiComboBoxItemPropTypes;
 }
 
 export interface MultiComboBoxElement extends HTMLElement {

@@ -3,7 +3,8 @@ import { spacing } from '@ui5/webcomponents-react-base';
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { ComboBoxPropTypes } from '@ui5/webcomponents-react/webComponents/ComboBox';
-import { BaseFieldProps, InputOptionsType } from '../types/form/baseprops';
+import { BaseFieldProps } from '../types/form/baseprops';
+import { InputOptionsType } from '../types/form/options';
 
 export interface ComboBoxFieldProps extends BaseFieldProps, ComboBoxPropTypes {
   options: InputOptionsType[];

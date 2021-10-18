@@ -5,11 +5,4 @@ export interface BaseFieldProps<T = void> {
   methods: UseFormReturn;
 }
 
-export type OptionsType = {
-  label: string;
-  value: string;
-};
-
-export type InputOptionsType = {
-  text: string;
-};
+export type BaseFieldPropsWithoutMethod<T> = Omit<BaseFieldProps<T>, 'methods'>;

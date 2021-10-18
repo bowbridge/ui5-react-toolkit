@@ -1,7 +1,8 @@
 import React from 'react';
 import { Option, Select, ValueState } from '@ui5/webcomponents-react';
 import { Controller } from 'react-hook-form';
-import { BaseFieldProps, OptionsType } from '../types/form/baseprops';
+import { BaseFieldProps } from '../types/form/baseprops';
+import { OptionsType } from '../types/form/options';
 import { SelectPropTypes } from '@ui5/webcomponents-react/webComponents/Select';
 
 export interface SelectFieldProps extends BaseFieldProps, SelectPropTypes {

@@ -1,9 +1,13 @@
-import React, { useRef } from "react";
-import { FormMetaType, RenderFormRef } from "../types";
-import { SchemaOf, string, object, number, boolean } from "yup";
-import { RenderForm } from "../components/RenderForm";
-import { SubmitHandler } from "react-hook-form";
-import { FlexBox, FlexBoxAlignItems,  FlexBoxJustifyContent } from "@ui5/webcomponents-react";
+import React, { useRef } from 'react';
+import { FormMetaType, RenderFormRef } from '../types';
+import { SchemaOf, string, object, number, boolean } from 'yup';
+import { RenderForm } from '../components/RenderForm';
+import { SubmitHandler } from 'react-hook-form';
+import {
+  FlexBox,
+  FlexBoxAlignItems,
+  FlexBoxJustifyContent,
+} from '@ui5/webcomponents-react';
 
 type Person = {
   firstname: string;
@@ -26,7 +30,7 @@ type Person = {
 }; */
 
 const validationSchema: SchemaOf<Person> = object({
-  firstname: string().required("Please Enter FirstName"),
+  firstname: string().required('Please Enter FirstName'),
   /*  lastname: string().required("Please Enter LastName"),
   email: string().email().required("Please Provide the Email"),
   age: number()
@@ -34,7 +38,7 @@ const validationSchema: SchemaOf<Person> = object({
     .required("Age must be a number")
     .positive(),
     schoolId: string().required("Select Field Required"), */
-  count: number().typeError("Please Enter the Count").required(),
+  count: number().typeError('Please Enter the Count').required(),
   active: boolean().required(),
 });
 
@@ -44,23 +48,19 @@ MultiInput
 
 export const fields: FormMetaType<Person> = [
   {
-    fieldtype: "multicombobox",
-    labelProps: {
-      labelName: "Firstname",
-      required: true,
-    },
+    fieldtype: 'multicombobox',
     fieldProps: {
-      fieldName: "firstname",
+      fieldName: 'firstname',
       options: [
         {
-          text: "India",
+          text: 'India',
         },
-        { text: "Germany" },
-        { text: "France" },
-        { text: "Belgium" },
-        { text: "Italy" },
-        { text: "Sweden" },
-        { text: "Norway" },
+        { text: 'Germany' },
+        { text: 'France' },
+        { text: 'Belgium' },
+        { text: 'Italy' },
+        { text: 'Sweden' },
+        { text: 'Norway' },
       ],
     },
   },
@@ -119,24 +119,18 @@ export const fields: FormMetaType<Person> = [
     },
   }, */
   {
-    fieldtype: "switch",
-    labelProps: {
-      labelName: "Active",
-    },
+    fieldtype: 'switch',
     fieldProps: {
-      fieldName: "active",
+      fieldName: 'active',
       style: {
-        width: "50px",
+        width: '50px',
       },
     },
   },
   {
-    fieldtype: "slider",
-    labelProps: {
-      labelName: "Count",
-    },
+    fieldtype: 'slider',
     fieldProps: {
-      fieldName: "count",
+      fieldName: 'count',
       step: 10,
     },
   },
@@ -150,18 +144,21 @@ export const PersonForm = () => {
 
   const renderFormRef = useRef<RenderFormRef>(null);
   return (
-    <FlexBox fitContainer justifyContent={FlexBoxJustifyContent.Center} alignItems={FlexBoxAlignItems.Center}>
-
-    <FlexBox style={{width :'200px'}}>
-    <RenderForm
-      editMode={false}
-      ref={renderFormRef}
-      fields={fields}
-      onSubmit={onSubmit}
-      validationSchema={validationSchema}
-      />
+    <FlexBox
+      fitContainer
+      justifyContent={FlexBoxJustifyContent.Center}
+      alignItems={FlexBoxAlignItems.Center}
+    >
+      <FlexBox style={{ width: '200px' }}>
+        <RenderForm
+          editMode={false}
+          ref={renderFormRef}
+          fields={fields}
+          onSubmit={onSubmit}
+          validationSchema={validationSchema}
+        />
       </FlexBox>
-      </FlexBox>
+    </FlexBox>
   );
 };
 
