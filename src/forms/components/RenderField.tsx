@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { FieldType } from '../types/form/fieldmap';
-import { RenderFieldProps } from '../types';
+import { FieldType, FieldPropsMap } from '../types/form/fieldmap';
 import { useFormContext } from 'react-hook-form';
 
 import { InputField } from '../lib/InputField';
@@ -21,10 +20,14 @@ import { RangeSliderField } from '../lib/RangeSliderField';
 import { RadioButtonField } from '../lib/RadioButtonField';
 import { ComboBoxField } from '../lib/ComboBoxField';
 import { MultiComboBoxField } from '../lib/MultiComboBoxField';
+import { BaseFieldPropsWithoutMethod } from '../types/form/baseprops';
 
-export const RenderField = (
-  props: Omit<RenderFieldProps<FieldType>, 'labelProps'>
-) => {
+export interface RenderFieldProps<T extends FieldType, S = any> {
+  fieldtype: T;
+  fieldProps: FieldPropsMap[T] & BaseFieldPropsWithoutMethod<keyof S>;
+}
+
+export const RenderField = (props: RenderFieldProps<FieldType>) => {
   const methods = useFormContext();
 
   const { fieldtype } = props;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, FormGroup, FormItem, Label } from '@ui5/webcomponents-react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { RenderField } from '..';
+import { RenderField } from '../components/RenderField';
 
 export const RenderFormComponent = () => {
   const methods = useForm();

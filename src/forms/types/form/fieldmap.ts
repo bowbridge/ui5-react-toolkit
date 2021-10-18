@@ -1,4 +1,6 @@
+import { LabelPropTypes } from '@ui5/webcomponents-react/dist/Label';
 import { BaseFieldProps } from './baseprops';
+import { RenderFieldProps } from '../../components/RenderField';
 
 import { CheckBoxFieldProps } from '../../lib/CheckBoxField';
 import { ColorPickerFieldProps } from '../../lib/ColorPickerField';
@@ -39,3 +41,11 @@ export type FieldPropsMap = {
 };
 
 export type FieldType = keyof FieldPropsMap;
+
+export interface FieldLabelProps extends LabelPropTypes {
+  fieldLabel: string;
+}
+
+export interface FieldMetaDataType<S> extends RenderFieldProps<FieldType, S> {
+  labelProps: FieldLabelProps;
+}

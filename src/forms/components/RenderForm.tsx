@@ -1,7 +1,7 @@
-import React from 'react';
-import { FormMetaType, RenderFormRef } from '../types';
+import React, { Fragment } from 'react';
+import { FieldMetaDataType } from '../types/form/fieldmap';
 import { ObjectSchema } from 'yup';
-import { forwardRef, useImperativeHandle, useEffect } from 'react';
+import { forwardRef, useImperativeHandle } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { RenderField } from './RenderField';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -16,10 +16,14 @@ import {
   Label,
   FormGroup,
 } from '@ui5/webcomponents-react';
+import { FormPropTypes } from '@ui5/webcomponents-react/dist/Form';
 import '@ui5/webcomponents/dist/features/InputElementsFormSupport.js';
 
+export type RenderFormRef = {
+  resetForm: () => void;
+};
 export interface RenderFormProps {
-  fields: FormMetaType<any>;
+  metaData: FormMetaData;
   validationSchema?: ObjectSchema<any>;
   onSubmit: SubmitHandler<any>;
   editMode?: boolean;
@@ -27,22 +31,38 @@ export interface RenderFormProps {
   onCancel?: () => void;
 }
 
+export function createFormMetaData<T>(
+  metaData: FormMetaData<T>
+): FormMetaData<T> {
+  return metaData;
+}
+
+export interface FormMetaData<F = any> {
+  formProps: Omit<FormPropTypes, 'children'>;
+  sections: {
+    groupName?: string;
+    fields: FieldMetaDataType<F>[];
+  }[];
+}
+
 export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
   (props, ref) => {
     const {
-      fields,
       validationSchema,
       onSubmit,
       editMode,
-      editModeContent,
       onCancel,
+      metaData: {
+        formProps: { titleText, ...restFormProps },
+        sections,
+      },
     } = props;
 
     const methods = useForm({
       resolver: validationSchema ? yupResolver(validationSchema) : undefined,
     });
 
-    const { reset, setValue } = methods;
+    const { reset } = methods;
 
     useImperativeHandle(ref, () => ({
       resetForm() {
@@ -51,7 +71,7 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
       },
     }));
 
-    useEffect(() => {
+    /*     useEffect(() => {
       if (editMode && editModeContent) {
         fields.forEach((field) => {
           setValue(
@@ -60,14 +80,28 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
           );
         });
       }
-    }, [editMode, editModeContent, fields, setValue]);
+    }, [editMode, editModeContent, fields, setValue]); */
 
     return (
       <FormProvider {...methods}>
-        <Form titleText="Test Form">
-          <FormGroup titleText="Personal Data">
-            {fields && <FormItemContainer fields={fields} />}
-          </FormGroup>
+        <Form titleText={titleText} {...restFormProps}>
+          {sections.map((section, index) => (
+            <Fragment key={index}>
+              {section.groupName ? (
+                <FormGroup titleText={section.groupName}>
+                  {section.fields && (
+                    <FormItemContainer fields={section.fields} />
+                  )}
+                </FormGroup>
+              ) : (
+                <>
+                  {section.fields && (
+                    <FormItemContainer fields={section.fields} />
+                  )}
+                </>
+              )}
+            </Fragment>
+          ))}
         </Form>
         <Toolbar toolbarStyle={ToolbarStyle.Clear}>
           <ToolbarSpacer />
@@ -83,7 +117,11 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
   }
 );
 
-const FormItemContainer = ({ fields }: { fields: FormMetaType<any> }) => {
+const FormItemContainer = ({
+  fields,
+}: {
+  fields: FieldMetaDataType<any>[];
+}) => {
   return (
     <>
       {fields.map((field, index) => {

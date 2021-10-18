@@ -1,16 +1,19 @@
 import React, { useRef } from 'react';
-import { FormMetaType, RenderFormRef } from '../types';
-import { SchemaOf, string, object, number, boolean } from 'yup';
-import { RenderForm } from '../components/RenderForm';
+import { SchemaOf, string, object, number } from 'yup';
+import {
+  RenderForm,
+  createFormMetaData,
+  RenderFormRef,
+} from '../components/RenderForm';
 import { SubmitHandler } from 'react-hook-form';
 
 type Person = {
   firstname: string;
+  age: number;
   /*  lastname: string;
   color: string;
   active: boolean;
   email: string;
-  age: number;
   count: number;
   schoolId: string; */
 };
@@ -27,77 +30,87 @@ type Person = {
 
 const validationSchema: SchemaOf<Person> = object({
   firstname: string().required('Please Enter FirstName'),
+  age: number()
+    .typeError('Please Enter the Age')
+    .required('Age must be a number')
+    .positive(),
   /*  lastname: string().required("Please Enter LastName"),
   color: string().required('Please Choose the Color'),
   email: string().email().required("Please Provide the Email"),
-  age: number()
-    .typeError("Please Enter the Age")
-    .required("Age must be a number")
-    .positive(),
     count: number().typeError('Please Enter the Count').required(),
-    active: boolean().required(),
+    active: boolean(),
     schoolId: string().required("Select Field Required"), */
 });
 
-/* 
-MultiInput
- */
+type School = {
+  name: string;
+  city: string;
+};
 
-export const fields: FormMetaType<Person> = [
-  {
-    fieldtype: 'timepicker',
-    labelProps: {
-      fieldLabel: 'Firstname',
-    },
-    fieldProps: {
-      fieldName: 'firstname',
-      showTickmarks: true,
-      style: {
-        width: '210px',
-      },
-    },
+const metaDataFromFunction = createFormMetaData<Person & School>({
+  formProps: {
+    titleText: 'Haiyo Haiyo',
   },
-  /*   {
-    fieldtype: 'slider',
-    labelProps: {
-      fieldLabel: 'Count',
+  sections: [
+    {
+      groupName: 'Person Information',
+      fields: [
+        {
+          fieldtype: 'input',
+          labelProps: {
+            fieldLabel: 'Firstname',
+            required: true,
+          },
+          fieldProps: {
+            fieldName: 'firstname',
+          },
+        },
+        {
+          fieldtype: 'input',
+          labelProps: {
+            fieldLabel: 'Age',
+            required: true,
+          },
+          fieldProps: {
+            fieldName: 'age',
+            type: 'Number',
+          },
+        },
+      ],
     },
-    fieldProps: {
-      fieldName: 'count',
-      style: {
-        width: '210px',
-        paddingLeft: '1rem',
-        paddingRight: '1rem',
-      },
+    {
+      groupName: 'School Information',
+      fields: [
+        {
+          fieldtype: 'input',
+          labelProps: {
+            fieldLabel: 'School Name',
+          },
+          fieldProps: {
+            fieldName: 'name',
+          },
+        },
+        {
+          fieldtype: 'input',
+          labelProps: {
+            fieldLabel: 'City',
+          },
+          fieldProps: {
+            fieldName: 'city',
+          },
+        },
+      ],
     },
-  },
-  {
-    fieldtype: 'checkbox',
-    labelProps: {
-      fieldLabel: 'Active',
-    },
-    fieldProps: {
-      fieldName: 'active',
-    },
-  },
-  {
-    fieldtype: 'datepicker',
-    labelProps: {
-      fieldLabel: 'Color',
-    },
-    fieldProps: {
-      fieldName: 'color',
-    },
-  }, */
-];
+  ],
+});
 
 export const PersonForm = () => {
   const onSubmit: SubmitHandler<Person> = (data) => {
     console.log(data);
-    formResetHandler();
+    // formResetHandler();
   };
 
-  const formResetHandler = (): void => {
+  const formResetHandler = () => {
     renderFormRef.current?.resetForm();
   };
 
@@ -107,16 +120,10 @@ export const PersonForm = () => {
       <RenderForm
         editMode={false}
         ref={renderFormRef}
-        fields={fields}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
+        metaData={metaDataFromFunction}
       />
     </>
   );
 };
-
-/*
-v2
-Calendar
-FileUploader
-*/
