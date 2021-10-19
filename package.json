@@ -21,7 +21,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "commit": "git-cz",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release --branches main"
   },
   "peerDependencies": {
     "@hookform/resolvers": "^2.8.2",
@@ -48,6 +48,7 @@
   },
   "name": "@bowbridge/ui5-react-toolkit",
   "author": "Webteam - bowbridge Software GmbH",
+  "description": "Utility components and Functions for UI5 Web Components for React.",
   "module": "dist/ui5-react-toolkit.esm.js",
   "size-limit": [
     {

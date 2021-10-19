@@ -2,7 +2,7 @@ This package contains Utility components and Functions for UI5 Web Components fo
 
 ## Features
 
-- [React Hook Form](https://react-hook-form.com/) Wrapper
+- [React Hook Form](https://react-hook-form.com/){:target="\_blank"} Wrapper
 - Generate forms using JSON Object
 - Toast Programmatic Component
 - Typescript Support
