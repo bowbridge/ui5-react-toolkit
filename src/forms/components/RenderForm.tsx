@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FieldMetaDataType } from '../types/form/fieldmap';
 import { ObjectSchema } from 'yup';
 import { forwardRef, useImperativeHandle } from 'react';
@@ -15,12 +15,14 @@ import {
   FormItem,
   Label,
   FormGroup,
+  BusyIndicator,
 } from '@ui5/webcomponents-react';
 import { FormPropTypes } from '@ui5/webcomponents-react/dist/Form';
 import '@ui5/webcomponents/dist/features/InputElementsFormSupport.js';
 
 export type RenderFormRef = {
   resetForm: () => void;
+  submit: () => void;
 };
 export interface RenderFormProps {
   metaData: FormMetaData;
@@ -29,6 +31,7 @@ export interface RenderFormProps {
   editMode?: boolean;
   editModeContent?: any;
   onCancel?: () => void;
+  inProgress?: boolean;
 }
 
 export function createFormMetaData<T>(
@@ -51,6 +54,7 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
       validationSchema,
       onSubmit,
       editMode,
+      editModeContent,
       onCancel,
       metaData: {
         formProps: { titleText, ...restFormProps },
@@ -58,56 +62,78 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
       },
     } = props;
 
+    const [showBusyIndicator, setShowBusyIndicator] = useState(false);
+
     const methods = useForm({
       resolver: validationSchema ? yupResolver(validationSchema) : undefined,
     });
 
-    const { reset } = methods;
+    const { setValue } = methods;
 
     useImperativeHandle(ref, () => ({
       resetForm() {
         console.log('Form Reseting...');
-        reset();
+        setShowBusyIndicator(false);
+        // reset();
+      },
+      submit() {
+        console.log('triggered By Parent');
+        setShowBusyIndicator(true);
+        methods.handleSubmit(onSubmit)();
       },
     }));
 
-    /*     useEffect(() => {
+    useEffect(() => {
       if (editMode && editModeContent) {
-        fields.forEach((field) => {
-          setValue(
-            field.fieldProps.fieldName,
-            editModeContent[field.fieldProps.fieldName]
-          );
+        sections.forEach((section) => {
+          section.fields.forEach((field) => {
+            setValue(
+              field.fieldProps.fieldName,
+              editModeContent[field.fieldProps.fieldName]
+            );
+          });
         });
       }
-    }, [editMode, editModeContent, fields, setValue]); */
+    }, [editMode, editModeContent, sections, setValue]);
+
+    const formSubmitHandler = () => {
+      setShowBusyIndicator(true);
+      methods.handleSubmit(onSubmit)();
+    };
 
     return (
       <FormProvider {...methods}>
         <Form titleText={titleText} {...restFormProps}>
           {sections.map((section, index) => (
-            <Fragment key={index}>
-              {section.groupName ? (
-                <FormGroup titleText={section.groupName}>
-                  {section.fields && (
-                    <FormItemContainer fields={section.fields} />
-                  )}
-                </FormGroup>
-              ) : (
-                <>
-                  {section.fields && (
-                    <FormItemContainer fields={section.fields} />
-                  )}
-                </>
-              )}
-            </Fragment>
+            <FormGroup
+              key={index}
+              titleText={section.groupName ? section.groupName : ''}
+            >
+              {section.fields.map((field, index) => {
+                const { fieldLabel, ...labelProps } = field.labelProps;
+
+                return (
+                  <FormItem
+                    key={index}
+                    label={<Label {...labelProps}>{fieldLabel}</Label>}
+                  >
+                    <RenderField
+                      fieldtype={field.fieldtype}
+                      fieldProps={field.fieldProps}
+                    />
+                  </FormItem>
+                );
+              })}
+            </FormGroup>
           ))}
         </Form>
         <Toolbar toolbarStyle={ToolbarStyle.Clear}>
           <ToolbarSpacer />
-          <Button onClick={methods.handleSubmit(onSubmit)}>
-            {editMode ? 'Update' : 'Create'}
-          </Button>
+          <BusyIndicator active={showBusyIndicator}>
+            <Button onClick={formSubmitHandler}>
+              {editMode ? 'Update' : 'Create'}
+            </Button>
+          </BusyIndicator>
           <Button design={ButtonDesign.Transparent} onClick={onCancel}>
             Cancel
           </Button>
@@ -116,29 +142,3 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
     );
   }
 );
-
-const FormItemContainer = ({
-  fields,
-}: {
-  fields: FieldMetaDataType<any>[];
-}) => {
-  return (
-    <>
-      {fields.map((field, index) => {
-        const { fieldLabel, ...labelProps } = field.labelProps;
-
-        return (
-          <FormItem
-            key={index}
-            label={<Label {...labelProps}>{fieldLabel}</Label>}
-          >
-            <RenderField
-              fieldtype={field.fieldtype}
-              fieldProps={field.fieldProps}
-            />
-          </FormItem>
-        );
-      })}
-    </>
-  );
-};

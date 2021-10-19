@@ -6,6 +6,7 @@ import {
   RenderFormRef,
 } from '../components/RenderForm';
 import { SubmitHandler } from 'react-hook-form';
+import { Button } from '@ui5/webcomponents-react';
 
 type Person = {
   firstname: string;
@@ -45,6 +46,13 @@ const validationSchema: SchemaOf<Person> = object({
 type School = {
   name: string;
   city: string;
+};
+
+const data: Person & School = {
+  name: 'Nehru',
+  city: 'Madurai',
+  firstname: 'Karthikeyan',
+  age: 40,
 };
 
 const metaDataFromFunction = createFormMetaData<Person & School>({
@@ -105,25 +113,35 @@ const metaDataFromFunction = createFormMetaData<Person & School>({
 });
 
 export const PersonForm = () => {
+  const renderFormRef = useRef<RenderFormRef>(null);
+
   const onSubmit: SubmitHandler<Person> = (data) => {
+    console.log('parenthit');
     console.log(data);
-    // formResetHandler();
+    setTimeout(() => {
+      formResetHandler();
+    }, 2500);
   };
 
   const formResetHandler = () => {
     renderFormRef.current?.resetForm();
   };
 
-  const renderFormRef = useRef<RenderFormRef>(null);
   return (
     <>
       <RenderForm
-        editMode={false}
+        editMode={true}
+        editModeContent={data}
         ref={renderFormRef}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
         metaData={metaDataFromFunction}
+        inProgress={true}
       />
+
+      <Button onClick={() => renderFormRef.current?.submit()}>
+        Parent Submit
+      </Button>
     </>
   );
 };
