@@ -21,6 +21,7 @@ export const InputField = ({
     <Controller
       name={fieldName}
       control={methods.control}
+      defaultValue={props.value}
       render={({ field: { onChange, value, ref } }) => (
         <Input
           style={innerStyle}

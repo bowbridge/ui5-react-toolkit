@@ -53,3 +53,9 @@ export {
   RenderFormRef,
   createFormMetaData,
 } from './forms/components/RenderForm';
+
+//** Utility Functions */
+
+import dispatchToast from './components/ToastProgrammatic';
+
+export { dispatchToast };

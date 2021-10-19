@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { FieldMetaDataType } from '../types/form/fieldmap';
 import { ObjectSchema } from 'yup';
 import { forwardRef, useImperativeHandle } from 'react';
@@ -16,9 +16,16 @@ import {
   Label,
   FormGroup,
   BusyIndicator,
+  Dialog,
+  FlexBox,
+  FlexBoxJustifyContent,
+  FlexBoxAlignItems,
+  Title,
+  FlexBoxDirection,
 } from '@ui5/webcomponents-react';
 import { FormPropTypes } from '@ui5/webcomponents-react/dist/Form';
 import '@ui5/webcomponents/dist/features/InputElementsFormSupport.js';
+import { Ui5DialogDomRef } from '@ui5/webcomponents-react/interfaces/Ui5DialogDomRef';
 
 export type RenderFormRef = {
   resetForm: () => void;
@@ -31,7 +38,7 @@ export interface RenderFormProps {
   editMode?: boolean;
   editModeContent?: any;
   onCancel?: () => void;
-  inProgress?: boolean;
+  hideToolbar?: boolean;
 }
 
 export function createFormMetaData<T>(
@@ -56,30 +63,30 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
       editMode,
       editModeContent,
       onCancel,
+      hideToolbar,
       metaData: {
         formProps: { titleText, ...restFormProps },
         sections,
       },
     } = props;
 
-    const [showBusyIndicator, setShowBusyIndicator] = useState(false);
-
     const methods = useForm({
       resolver: validationSchema ? yupResolver(validationSchema) : undefined,
     });
 
-    const { setValue } = methods;
+    const { setValue, formState } = methods;
+
+    const dialogDomRef = useRef<Ui5DialogDomRef>(null);
 
     useImperativeHandle(ref, () => ({
       resetForm() {
         console.log('Form Reseting...');
-        setShowBusyIndicator(false);
+        dialogDomRef.current?.close();
         // reset();
       },
       submit() {
         console.log('triggered By Parent');
-        setShowBusyIndicator(true);
-        methods.handleSubmit(onSubmit)();
+        formSubmitHandler();
       },
     }));
 
@@ -97,8 +104,10 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
     }, [editMode, editModeContent, sections, setValue]);
 
     const formSubmitHandler = () => {
-      setShowBusyIndicator(true);
       methods.handleSubmit(onSubmit)();
+      if (formState.isValid) {
+        dialogDomRef.current?.show();
+      }
     };
 
     return (
@@ -127,17 +136,25 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
             </FormGroup>
           ))}
         </Form>
-        <Toolbar toolbarStyle={ToolbarStyle.Clear}>
-          <ToolbarSpacer />
-          <BusyIndicator active={showBusyIndicator}>
+        {!hideToolbar && (
+          <Toolbar toolbarStyle={ToolbarStyle.Clear}>
+            <ToolbarSpacer />
             <Button onClick={formSubmitHandler}>
               {editMode ? 'Update' : 'Create'}
             </Button>
-          </BusyIndicator>
-          <Button design={ButtonDesign.Transparent} onClick={onCancel}>
-            Cancel
-          </Button>
-        </Toolbar>
+            <Button design={ButtonDesign.Transparent} onClick={onCancel}>
+              Cancel
+            </Button>
+          </Toolbar>
+        )}
+        <Dialog ref={dialogDomRef}>
+          <FlexBox
+            justifyContent={FlexBoxJustifyContent.Center}
+            alignItems={FlexBoxAlignItems.Center}
+          >
+            <BusyIndicator active />
+          </FlexBox>
+        </Dialog>
       </FormProvider>
     );
   }
