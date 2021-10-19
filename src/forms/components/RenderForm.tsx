@@ -20,8 +20,6 @@ import {
   FlexBox,
   FlexBoxJustifyContent,
   FlexBoxAlignItems,
-  Title,
-  FlexBoxDirection,
 } from '@ui5/webcomponents-react';
 import { FormPropTypes } from '@ui5/webcomponents-react/dist/Form';
 import '@ui5/webcomponents/dist/features/InputElementsFormSupport.js';
