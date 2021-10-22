@@ -37,6 +37,7 @@ export interface RenderFormProps {
   editModeContent?: any;
   onCancel?: () => void;
   hideToolbar?: boolean;
+  submitButtonText?: string;
 }
 
 export function createFormMetaData<T>(
@@ -62,6 +63,7 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
       editModeContent,
       onCancel,
       hideToolbar,
+      submitButtonText,
       metaData: {
         formProps: { titleText, ...restFormProps },
         sections,
@@ -72,19 +74,17 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
       resolver: validationSchema ? yupResolver(validationSchema) : undefined,
     });
 
-    const { setValue, formState } = methods;
+    const { setValue, formState, reset } = methods;
 
     const dialogDomRef = useRef<Ui5DialogDomRef>(null);
 
     useImperativeHandle(ref, () => ({
       resetForm() {
-        console.log('Form Reseting...');
         dialogDomRef.current?.close();
-        // reset();
+        reset();
       },
       submit() {
-        console.log('triggered By Parent');
-        formSubmitHandler();
+        methods.handleSubmit(onSubmit)();
       },
     }));
 
@@ -103,7 +103,7 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
 
     const formSubmitHandler = () => {
       methods.handleSubmit(onSubmit)();
-      if (formState.isValid) {
+      if (formState.isValid && !hideToolbar) {
         dialogDomRef.current?.show();
       }
     };
@@ -135,24 +135,31 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
           ))}
         </Form>
         {!hideToolbar && (
-          <Toolbar toolbarStyle={ToolbarStyle.Clear}>
-            <ToolbarSpacer />
-            <Button onClick={formSubmitHandler}>
-              {editMode ? 'Update' : 'Create'}
-            </Button>
-            <Button design={ButtonDesign.Transparent} onClick={onCancel}>
-              Cancel
-            </Button>
-          </Toolbar>
+          <>
+            <Toolbar toolbarStyle={ToolbarStyle.Clear}>
+              <ToolbarSpacer />
+              <Button onClick={formSubmitHandler}>
+                {submitButtonText
+                  ? submitButtonText
+                  : editMode
+                  ? 'Update'
+                  : 'Create'}
+              </Button>
+              <Button design={ButtonDesign.Transparent} onClick={onCancel}>
+                Cancel
+              </Button>
+            </Toolbar>
+            <Dialog ref={dialogDomRef}>
+              <FlexBox
+                style={{ height: '100px' }}
+                justifyContent={FlexBoxJustifyContent.Center}
+                alignItems={FlexBoxAlignItems.Center}
+              >
+                <BusyIndicator active />
+              </FlexBox>
+            </Dialog>
+          </>
         )}
-        <Dialog ref={dialogDomRef}>
-          <FlexBox
-            justifyContent={FlexBoxJustifyContent.Center}
-            alignItems={FlexBoxAlignItems.Center}
-          >
-            <BusyIndicator active />
-          </FlexBox>
-        </Dialog>
       </FormProvider>
     );
   }

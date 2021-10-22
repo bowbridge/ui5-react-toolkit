@@ -1,18 +1,17 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 
-import {PersonForm} from '../src/forms/examples/PersonForm';
+import { TestForm } from '../src/forms/examples/TestForm';
 
 const meta: Meta = {
-    title: 'Person Form',
-    component: PersonForm
-}
+  title: 'Person Form',
+  component: TestForm,
+};
 
-export default meta
+export default meta;
 
-const Template: Story = args => <PersonForm {...args} />
+const Template: Story = (args) => <TestForm {...args} />;
 
-export const Default = Template.bind({})
+export const Default = Template.bind({});
 
-Default.args = {   
-}
+Default.args = {};

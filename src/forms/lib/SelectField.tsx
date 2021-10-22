@@ -27,7 +27,6 @@ export const SelectField = ({
       render={({ field }) => (
         <Select
           style={innerStyle}
-          {...field}
           onChange={(e) => {
             const selectedOption = e.detail.selectedOption as HTMLSelectElement;
             field.onChange(selectedOption.value);
@@ -46,11 +45,12 @@ export const SelectField = ({
           }
           {...props}
         >
-          {options.map((option, index) => (
-            <Option key={index} value={option.value}>
-              {option.label}
-            </Option>
-          ))}
+          {options &&
+            options.map((option, index) => (
+              <Option key={index} value={option.value}>
+                {option.label}
+              </Option>
+            ))}
         </Select>
       )}
     />
