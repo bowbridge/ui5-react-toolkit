@@ -1,3 +1,19 @@
+//** Components */
+export { RenderField, RenderFieldProps } from './forms/components/RenderField';
+export {
+  RenderForm,
+  RenderFormProps,
+  RenderFormRef,
+  createFormMetaData,
+} from './forms/components/RenderForm';
+
+//** Hooks and Methods */
+import dispatchToast from './components/ToastProgrammatic';
+
+export { dispatchToast };
+export { useTeleport } from './hooks/useTeleport';
+
+//** Form Elements */
 export { CheckBoxField, CheckBoxFieldProps } from './forms/lib/CheckBoxField';
 export {
   ColorPickerField,
@@ -45,17 +61,3 @@ export {
   TimePickerField,
   TimePickeFieldProps,
 } from './forms/lib/TimePickerField';
-
-export { RenderField, RenderFieldProps } from './forms/components/RenderField';
-export {
-  RenderForm,
-  RenderFormProps,
-  RenderFormRef,
-  createFormMetaData,
-} from './forms/components/RenderForm';
-
-//** Utility Functions */
-
-import dispatchToast from './components/ToastProgrammatic';
-
-export { dispatchToast };

@@ -1,4 +1,6 @@
-import { Ui5ResponsivePopoverDomRef } from '@ui5/webcomponents-react/interfaces/Ui5ResponsivePopoverDomRef';
+import { Ui5DialogDomRef } from '@ui5/webcomponents-react/interfaces/Ui5DialogDomRef';
+import { Ui5PopoverDomRef } from '@ui5/webcomponents-react/interfaces/Ui5PopoverDomRef';
+
 import {
   MutableRefObject,
   ReactNode,
@@ -23,7 +25,8 @@ export function useTeleport({
 }: UseTeleportOptions = {}) {
   const portal = useRef(document.createElement('div')) as HTMLElRef;
 
-  const popoverRef = useRef<Ui5ResponsivePopoverDomRef>(null);
+  const popoverRef = useRef<Ui5PopoverDomRef>(null);
+  const dialogRef = useRef<Ui5DialogDomRef>(null);
 
   const [isOpen, makeOpen] = useState(defaultIsOpen);
   const open = useRef(isOpen);
@@ -51,15 +54,18 @@ export function useTeleport({
     if (open.current) setOpen(false);
   }, [setOpen]);
 
-  const openPopver = (opener: HTMLElement | EventTarget): void => {
+  const openPopover = (opener: HTMLElement | EventTarget): void => {
     openTeleport();
     setTimeout(() => {
       popoverRef.current?.showAt(opener);
     }, 0);
   };
 
-  const closePopover = (): void => {
-    closeTeleport();
+  const openDialog = (): void => {
+    openTeleport();
+    setTimeout(() => {
+      dialogRef.current?.show();
+    }, 0);
   };
 
   useEffect(() => {
@@ -85,14 +91,17 @@ export function useTeleport({
     [portal]
   );
 
-  return {
+  const commonObjects = {
     isOpen: open.current,
-    portalRef: portal,
-    popoverRef,
+    close: closeTeleport,
     Teleport,
-    openTeleport,
-    closeTeleport,
-    openPopver,
-    closePopover,
+  };
+
+  return {
+    ...commonObjects,
+    popoverRef,
+    dialogRef,
+    openPopover,
+    openDialog,
   };
 }
