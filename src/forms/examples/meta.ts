@@ -87,7 +87,10 @@ export const formMetaData = createFormMetaData<MixedType>({
           },
           fieldProps: {
             fieldName: 'country',
-            options: [
+            optionValueKey: 'value',
+            optionLabelKey: 'label',
+            optionSelectedValue: 'italy',
+            optionsData: [
               {
                 label: '',
                 value: '',
