@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { FieldMetaDataType } from '../types/form/fieldmap';
 import { ObjectSchema } from 'yup';
 import { forwardRef, useImperativeHandle } from 'react';
@@ -15,15 +15,10 @@ import {
   FormItem,
   Label,
   FormGroup,
-  BusyIndicator,
-  Dialog,
-  FlexBox,
-  FlexBoxJustifyContent,
-  FlexBoxAlignItems,
+  Loader,
 } from '@ui5/webcomponents-react';
 import { FormPropTypes } from '@ui5/webcomponents-react/dist/Form';
 import '@ui5/webcomponents/dist/features/InputElementsFormSupport.js';
-import { Ui5DialogDomRef } from '@ui5/webcomponents-react/interfaces/Ui5DialogDomRef';
 
 export type RenderFormRef = {
   resetForm: () => void;
@@ -38,6 +33,7 @@ export interface RenderFormProps {
   onCancel?: () => void;
   hideToolbar?: boolean;
   submitButtonText?: string;
+  showLoader?: boolean;
 }
 
 export function createFormMetaData<T>(
@@ -64,6 +60,7 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
       onCancel,
       hideToolbar,
       submitButtonText,
+      showLoader,
       metaData: {
         formProps: { titleText, ...restFormProps },
         sections,
@@ -74,13 +71,10 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
       resolver: validationSchema ? yupResolver(validationSchema) : undefined,
     });
 
-    const { setValue, formState, reset } = methods;
-
-    const dialogDomRef = useRef<Ui5DialogDomRef>(null);
+    const { setValue, reset } = methods;
 
     useImperativeHandle(ref, () => ({
       resetForm() {
-        dialogDomRef.current?.close();
         reset();
       },
       submit() {
@@ -103,9 +97,6 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
 
     const formSubmitHandler = () => {
       methods.handleSubmit(onSubmit)();
-      if (formState.isValid && !hideToolbar) {
-        dialogDomRef.current?.show();
-      }
     };
 
     return (
@@ -136,6 +127,7 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
         </Form>
         {!hideToolbar && (
           <>
+            <div style={{ height: '1rem' }}>{showLoader && <Loader />}</div>
             <Toolbar toolbarStyle={ToolbarStyle.Clear}>
               <ToolbarSpacer />
               <Button onClick={formSubmitHandler}>
@@ -149,15 +141,6 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
                 Cancel
               </Button>
             </Toolbar>
-            <Dialog ref={dialogDomRef}>
-              <FlexBox
-                style={{ height: '100px' }}
-                justifyContent={FlexBoxJustifyContent.Center}
-                alignItems={FlexBoxAlignItems.Center}
-              >
-                <BusyIndicator active />
-              </FlexBox>
-            </Dialog>
           </>
         )}
       </FormProvider>
