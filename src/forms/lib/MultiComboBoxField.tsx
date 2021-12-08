@@ -9,12 +9,12 @@ import { Controller } from 'react-hook-form';
 import { MultiComboBoxPropTypes } from '@ui5/webcomponents-react/webComponents/MultiComboBox';
 import { MultiComboBoxItemPropTypes } from '@ui5/webcomponents-react/webComponents/MultiComboBoxItem';
 import { BaseFieldProps } from '../types/form/baseprops';
-import { InputOptionsType } from '../types/form/options';
 
 export interface MultiComboBoxFieldProps
   extends BaseFieldProps,
     MultiComboBoxPropTypes {
-  options: InputOptionsType[];
+  optionsData: any[];
+  optionValueKey: string;
   itemProps?: MultiComboBoxItemPropTypes;
 }
 
@@ -26,7 +26,8 @@ export const MultiComboBoxField = ({
   methods,
   style,
   fieldName,
-  options,
+  optionsData,
+  optionValueKey,
   ...props
 }: MultiComboBoxFieldProps) => {
   const innerStyle = {
@@ -65,9 +66,9 @@ export const MultiComboBoxField = ({
           }
           {...props}
         >
-          {options &&
-            options.map((option, index) => (
-              <MultiComboBoxItem key={index} text={option.text} />
+          {optionsData &&
+            optionsData.map((option, index) => (
+              <MultiComboBoxItem key={index} text={option[optionValueKey]} />
             ))}
         </MultiComboBox>
       )}
