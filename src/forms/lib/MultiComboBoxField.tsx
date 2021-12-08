@@ -45,9 +45,8 @@ export const MultiComboBoxField = ({
             let elements = e.detail.items as MultiComboBoxElement[];
             let selectedItems: any = [];
             elements.forEach((element) => {
-              let data = {
-                item: element['text'],
-              };
+              let data: any = {};
+              data[optionValueKey] = element['text'];
               selectedItems.push(data);
             });
             field.onChange(JSON.stringify(selectedItems));
