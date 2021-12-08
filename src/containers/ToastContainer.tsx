@@ -1,7 +1,7 @@
 import React, { useRef, RefObject, useEffect } from 'react';
 import { ToastPropTypes } from '@ui5/webcomponents-react/webComponents/Toast';
 import { Toast } from '@ui5/webcomponents-react';
-import { Ui5ToastDomRef } from '@ui5/webcomponents-react/interfaces/Ui5ToastDomRef';
+import { ToastDomRef as Ui5ToastDomRef } from '@ui5/webcomponents-react/webComponents/Toast';
 import {
   FlexBox,
   FlexBoxAlignItems,
