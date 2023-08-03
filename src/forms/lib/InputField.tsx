@@ -28,6 +28,9 @@ export const InputField = ({
           onChange={(value) => {
             onChange(value.target.value);
           }}
+          onInput={(value) => {
+            onChange(value.target.value);
+          }}
           valueStateMessage={
             <span>
               {methods.formState.errors[fieldName]?.message
