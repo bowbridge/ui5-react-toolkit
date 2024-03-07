@@ -1,23 +1,24 @@
-import React, { useEffect } from 'react';
-import { FieldMetaDataType } from '../types/form/fieldmap';
-import { ObjectSchema } from 'yup';
-import { forwardRef, useImperativeHandle } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { RenderField } from './RenderField';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Button,
   ButtonDesign,
   Form,
+  FormGroup,
+  FormItem,
+  FormPropTypes,
+  Label,
+  Loader,
   Toolbar,
   ToolbarSpacer,
   ToolbarStyle,
-  FormItem,
-  Label,
-  FormGroup,
-  Loader,
 } from '@ui5/webcomponents-react';
-import { FormPropTypes } from '@ui5/webcomponents-react/dist/Form';
+import { ObjectSchema } from 'yup';
+
+import { RenderField } from './RenderField';
+import { FieldMetaDataType } from '../types/form/fieldmap';
+
 import '@ui5/webcomponents/dist/features/InputElementsFormSupport.js';
 
 export type RenderFormRef = {
@@ -68,7 +69,7 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
     } = props;
 
     const methods = useForm({
-      resolver: validationSchema ? yupResolver(validationSchema) : undefined,
+      ...(validationSchema && { resolver: yupResolver(validationSchema) }),
     });
 
     const { setValue, reset } = methods;
@@ -84,8 +85,8 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
 
     useEffect(() => {
       if (editMode && editModeContent) {
-        sections.forEach((section) => {
-          section.fields.forEach((field) => {
+        sections.forEach(section => {
+          section.fields.forEach(field => {
             setValue(
               field.fieldProps.fieldName,
               editModeContent[field.fieldProps.fieldName]

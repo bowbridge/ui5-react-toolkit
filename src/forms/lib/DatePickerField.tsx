@@ -1,7 +1,11 @@
 import React from 'react';
-import { DatePicker, ValueState } from '@ui5/webcomponents-react';
 import { Controller } from 'react-hook-form';
-import { DatePickerPropTypes } from '@ui5/webcomponents-react/webComponents/DatePicker';
+import {
+  DatePicker,
+  DatePickerPropTypes,
+  ValueState,
+} from '@ui5/webcomponents-react';
+
 import { BaseFieldProps } from '../types/form/baseprops';
 
 export interface DatePickerFieldProps
@@ -14,7 +18,7 @@ export const DatePickerField = ({
   style,
   ...props
 }: DatePickerFieldProps) => {
-  const innterStyle = {
+  const innerStyle = {
     ...style,
   };
 
@@ -24,7 +28,7 @@ export const DatePickerField = ({
       control={methods.control}
       render={({ field: { ...rest } }) => (
         <DatePicker
-          style={innterStyle}
+          style={innerStyle}
           valueStateMessage={
             <span>
               {methods.formState.errors[fieldName]?.message

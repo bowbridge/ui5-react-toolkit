@@ -1,7 +1,10 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { RatingIndicator } from '@ui5/webcomponents-react';
-import { RatingIndicatorPropTypes } from '@ui5/webcomponents-react/webComponents/RatingIndicator';
+import {
+  RatingIndicator,
+  RatingIndicatorPropTypes,
+} from '@ui5/webcomponents-react';
+
 import { BaseFieldProps } from '../types/form/baseprops';
 
 export interface RatingIndicatorFieldProps

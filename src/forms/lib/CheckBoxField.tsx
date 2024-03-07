@@ -1,7 +1,11 @@
 import React from 'react';
-import { CheckBox, ValueState } from '@ui5/webcomponents-react';
 import { Controller } from 'react-hook-form';
-import { CheckBoxPropTypes } from '@ui5/webcomponents-react/webComponents/CheckBox';
+import {
+  CheckBox,
+  CheckBoxPropTypes,
+  ValueState,
+} from '@ui5/webcomponents-react';
+
 import { BaseFieldProps } from '../types/form/baseprops';
 
 export interface CheckBoxFieldProps extends BaseFieldProps, CheckBoxPropTypes {}
@@ -19,9 +23,8 @@ export const CheckBoxField = ({
       render={({ field: { onChange, value, ...restField } }) => (
         <CheckBox
           style={{ width: '40px' }}
-          onChange={(e) => {
-            const element = e.target as HTMLInputElement;
-            onChange(element.checked);
+          onChange={e => {
+            onChange(e.target.checked);
           }}
           checked={value}
           valueState={

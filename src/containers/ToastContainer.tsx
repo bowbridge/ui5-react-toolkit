@@ -1,7 +1,9 @@
-import React, { useRef, RefObject, useEffect } from 'react';
-import { ToastPropTypes } from '@ui5/webcomponents-react/webComponents/Toast';
-import { Toast } from '@ui5/webcomponents-react';
-import { ToastDomRef as Ui5ToastDomRef } from '@ui5/webcomponents-react/webComponents/Toast';
+import React, { useRef, RefObject, useEffect, FC } from 'react';
+import {
+  Toast,
+  ToastPropTypes,
+  ToastDomRef as Ui5ToastDomRef,
+} from '@ui5/webcomponents-react';
 import {
   FlexBox,
   FlexBoxAlignItems,
@@ -41,7 +43,7 @@ const innerIconStyle = {
   },
 };
 
-export const ToastContainer: React.FC<ToastContainerProps> = ({
+export const ToastContainer: FC<ToastContainerProps> = ({
   onEnd,
   duration,
   children,

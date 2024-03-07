@@ -1,28 +1,27 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { Switch } from '@ui5/webcomponents-react';
+import { Switch, SwitchPropTypes } from '@ui5/webcomponents-react';
 
-import { SwitchPropTypes } from '@ui5/webcomponents-react/webComponents/Switch';
 import { BaseFieldProps } from '../types/form/baseprops';
 
 export interface SwitchFieldProps extends BaseFieldProps, SwitchPropTypes {
-  intitialValue: boolean;
+  initialValue: boolean;
 }
 
 export const SwitchField = ({
   fieldName,
   methods,
-  intitialValue,
+  initialValue,
   ...props
 }: SwitchFieldProps) => {
   return (
     <Controller
       name={fieldName}
       control={methods.control}
-      defaultValue={intitialValue}
+      defaultValue={initialValue}
       render={({ field }) => (
         <Switch
-          onChange={(e) => field.onChange(e.target.checked)}
+          onChange={e => field.onChange(e.target.checked)}
           checked={field.value}
           {...props}
         />

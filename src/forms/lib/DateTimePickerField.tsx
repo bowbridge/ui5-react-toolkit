@@ -1,7 +1,11 @@
 import React from 'react';
-import { DateTimePicker, ValueState } from '@ui5/webcomponents-react';
 import { Controller } from 'react-hook-form';
-import { DateTimePickerPropTypes } from '@ui5/webcomponents-react/webComponents/DateTimePicker';
+import {
+  DateTimePicker,
+  DateTimePickerPropTypes,
+  ValueState,
+} from '@ui5/webcomponents-react';
+
 import { BaseFieldProps } from '../types/form/baseprops';
 
 export interface DateTimePickerFieldProps

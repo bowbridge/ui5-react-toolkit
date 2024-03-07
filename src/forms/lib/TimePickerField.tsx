@@ -1,19 +1,23 @@
 import React from 'react';
-import { TimePicker, ValueState } from '@ui5/webcomponents-react';
 import { Controller } from 'react-hook-form';
-import { DatePickerPropTypes } from '@ui5/webcomponents-react/webComponents/DatePicker';
+import {
+  TimePicker,
+  TimePickerPropTypes,
+  ValueState,
+} from '@ui5/webcomponents-react';
+
 import { BaseFieldProps } from '../types/form/baseprops';
 
-export interface TimePickeFieldProps
+export interface TimePickerFieldProps
   extends BaseFieldProps,
-    DatePickerPropTypes {}
+    TimePickerPropTypes {}
 
 export const TimePickerField = ({
   methods,
   fieldName,
   style,
   ...props
-}: TimePickeFieldProps) => {
+}: TimePickerFieldProps) => {
   const innerStyle = {
     ...style,
   };

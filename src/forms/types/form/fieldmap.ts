@@ -1,4 +1,4 @@
-import { LabelPropTypes } from '@ui5/webcomponents-react/dist/Label';
+import { LabelPropTypes } from '@ui5/webcomponents-react';
 import { BaseFieldProps } from './baseprops';
 import { RenderFieldProps } from '../../components/RenderField';
 
@@ -18,7 +18,7 @@ import { SliderFieldProps } from '../../lib/SliderField';
 import { StepInputFieldProps } from '../../lib/StepInputField';
 import { SwitchFieldProps } from '../../lib/SwitchField';
 import { TextAreaFieldProps } from '../../lib/TextAreaField';
-import { TimePickeFieldProps } from '../../lib/TimePickerField';
+import { TimePickerFieldProps } from '../../lib/TimePickerField';
 
 export type FieldPropsMap = {
   input: Omit<InputFieldProps, keyof BaseFieldProps>;
@@ -29,7 +29,7 @@ export type FieldPropsMap = {
   slider: Omit<SliderFieldProps, keyof BaseFieldProps>;
   textarea: Omit<TextAreaFieldProps, keyof BaseFieldProps>;
   datepicker: Omit<DatePickerFieldProps, keyof BaseFieldProps>;
-  timepicker: Omit<TimePickeFieldProps, keyof BaseFieldProps>;
+  timepicker: Omit<TimePickerFieldProps, keyof BaseFieldProps>;
   colorpicker: Omit<ColorPickerFieldProps, keyof BaseFieldProps>;
   datetimepicker: Omit<DateTimePickerFieldProps, keyof BaseFieldProps>;
   daterangepicker: Omit<DateRangePickerFieldProps, keyof BaseFieldProps>;

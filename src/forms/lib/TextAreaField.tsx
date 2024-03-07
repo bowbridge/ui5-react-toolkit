@@ -1,8 +1,11 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { TextArea, ValueState } from '@ui5/webcomponents-react';
+import {
+  TextArea,
+  TextAreaPropTypes,
+  ValueState,
+} from '@ui5/webcomponents-react';
 
-import { TextAreaPropTypes } from '@ui5/webcomponents-react/webComponents/TextArea';
 import { BaseFieldProps } from '../types/form/baseprops';
 
 export interface TextAreaFieldProps extends BaseFieldProps, TextAreaPropTypes {}

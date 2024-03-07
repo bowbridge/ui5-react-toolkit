@@ -27,7 +27,7 @@ export const RenderFormComponent = () => {
               fieldtype="select"
               fieldProps={{
                 fieldName: 'country',
-                options: [
+                optionsData: [
                   {
                     label: 'Germany',
                     value: 'germany',

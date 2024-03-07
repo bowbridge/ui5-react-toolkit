@@ -1,8 +1,12 @@
-import { DateRangePicker, ValueState } from '@ui5/webcomponents-react';
 import React from 'react';
 import { Controller } from 'react-hook-form';
+import {
+  DateRangePicker,
+  DateRangePickerPropTypes,
+  ValueState,
+} from '@ui5/webcomponents-react';
+
 import { BaseFieldProps } from '../types/form/baseprops';
-import { DateRangePickerPropTypes } from '@ui5/webcomponents-react/webComponents/DateRangePicker';
 
 export interface DateRangePickerFieldProps
   extends BaseFieldProps,

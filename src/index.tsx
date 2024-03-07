@@ -59,5 +59,5 @@ export { SwitchField, SwitchFieldProps } from './forms/lib/SwitchField';
 export { TextAreaField, TextAreaFieldProps } from './forms/lib/TextAreaField';
 export {
   TimePickerField,
-  TimePickeFieldProps,
+  TimePickerFieldProps,
 } from './forms/lib/TimePickerField';

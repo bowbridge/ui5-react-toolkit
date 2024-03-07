@@ -1,7 +1,7 @@
-import { ColorPicker } from '@ui5/webcomponents-react';
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { ColorPickerPropTypes } from '@ui5/webcomponents-react/webComponents/ColorPicker';
+import { ColorPicker, ColorPickerPropTypes } from '@ui5/webcomponents-react';
+
 import { BaseFieldProps } from '../types/form/baseprops';
 
 export interface ColorPickerFieldProps
@@ -28,7 +28,7 @@ export const ColorPickerField = ({
       render={({ field }) => (
         <ColorPicker
           style={innerStyle}
-          onChange={(e) => {
+          onChange={e => {
             const element = e.target as ColorPickerElement;
             field.onChange(element['color']);
           }}

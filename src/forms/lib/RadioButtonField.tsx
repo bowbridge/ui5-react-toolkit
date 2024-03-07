@@ -1,7 +1,12 @@
 import React from 'react';
-import { FlexBox, RadioButton, ValueState } from '@ui5/webcomponents-react';
 import { Controller } from 'react-hook-form';
-import { RadioButtonPropTypes } from '@ui5/webcomponents-react/webComponents/RadioButton';
+import {
+  FlexBox,
+  RadioButton,
+  RadioButtonPropTypes,
+  ValueState,
+} from '@ui5/webcomponents-react';
+
 import { BaseFieldProps } from '../types/form/baseprops';
 import { InputOptionsType } from '../types/form/options';
 
@@ -9,10 +14,6 @@ export interface RadioButtonFieldProps
   extends BaseFieldProps,
     RadioButtonPropTypes {
   options: InputOptionsType[];
-}
-
-interface RadioButtonElement extends HTMLInputElement {
-  text: string;
 }
 
 export const RadioButtonField = ({
@@ -44,9 +45,8 @@ export const RadioButtonField = ({
                     : ValueState.None
                 }
                 text={option.text}
-                onChange={(e) => {
-                  const element = e.target as RadioButtonElement;
-                  field.onChange(element.text);
+                onChange={e => {
+                  field.onChange(e.target.text);
                 }}
                 {...props}
               />

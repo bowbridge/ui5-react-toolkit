@@ -1,9 +1,14 @@
 import React from 'react';
-import { Option, Select, ValueState } from '@ui5/webcomponents-react';
 import { Controller } from 'react-hook-form';
+import {
+  Option,
+  OptionPropTypes,
+  Select,
+  SelectPropTypes,
+  ValueState,
+} from '@ui5/webcomponents-react';
+
 import { BaseFieldProps } from '../types/form/baseprops';
-import { SelectPropTypes } from '@ui5/webcomponents-react/webComponents/Select';
-import { OptionPropTypes } from '@ui5/webcomponents-react/webComponents/Option';
 
 export interface SelectFieldProps extends BaseFieldProps, SelectPropTypes {
   optionsData: any[];
@@ -30,7 +35,7 @@ export const SelectField = ({
 
   const getDefaultValue = (): string => {
     let defaultOptionValue: string = '';
-    optionsData.forEach((option) => {
+    optionsData.forEach(option => {
       if (option[optionValueKey] === optionSelectedValue) {
         defaultOptionValue = JSON.stringify(option);
       }
@@ -46,9 +51,9 @@ export const SelectField = ({
       render={({ field }) => (
         <Select
           style={innerStyle}
-          onChange={(e) => {
-            const selectedOption = e.detail.selectedOption as HTMLSelectElement;
-            optionsData.find((option) => {
+          onChange={e => {
+            const selectedOption = e.detail.selectedOption;
+            optionsData.find(option => {
               if (selectedOption.value !== '') {
                 if (option[optionValueKey] === selectedOption.value) {
                   const selectedData = JSON.stringify(option);
@@ -78,9 +83,7 @@ export const SelectField = ({
               <Option
                 key={index}
                 value={option[optionValueKey]}
-                selected={
-                  option[optionValueKey] === optionSelectedValue ? true : false
-                }
+                selected={option[optionValueKey] === optionSelectedValue}
                 {...optionProps}
               >
                 {option[optionLabelKey]}
