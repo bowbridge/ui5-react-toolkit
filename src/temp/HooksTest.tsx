@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTeleport } from '../hooks/useTeleport';
 import {
   ActionSheet,
   Button,
@@ -14,6 +13,8 @@ import {
   Title,
 } from '@ui5/webcomponents-react';
 import { spacing } from '@ui5/webcomponents-react-base';
+
+import { useTeleport } from '../hooks/useTeleport';
 
 export const HooksTest = () => {
   const DialogHooks = useTeleport();
@@ -35,7 +36,7 @@ export const HooksTest = () => {
       <FlexBox>
         <Button
           style={{ marginTop: '1rem' }}
-          onClick={(e) => ActionSheetHooks.openPopover(e.target)}
+          onClick={e => ActionSheetHooks.openPopover(e.target)}
         >
           Open Actionsheet
         </Button>
@@ -43,7 +44,7 @@ export const HooksTest = () => {
       <FlexBox>
         <Button
           style={{ marginTop: '1rem' }}
-          onClick={(e) => ResponsivePopoverHooks.openPopover(e.target)}
+          onClick={e => ResponsivePopoverHooks.openPopover(e.target)}
         >
           open Responsive Popover
         </Button>
@@ -56,7 +57,7 @@ export const HooksTest = () => {
       <FlexBox>
         <Button
           style={{ marginTop: '1rem' }}
-          onClick={(e) => PopoverHooks.openPopover(e.target)}
+          onClick={e => PopoverHooks.openPopover(e.target)}
         >
           Open Popover
         </Button>

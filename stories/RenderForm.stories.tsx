@@ -1,5 +1,5 @@
 import React from 'react';
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
 import { TestForm } from '../src/forms/examples/TestForm';
 
@@ -10,7 +10,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story = (args) => <TestForm {...args} />;
+const Template: StoryFn = args => <TestForm {...args} />;
 
 export const Default = Template.bind({});
 

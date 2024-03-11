@@ -1,9 +1,3 @@
-//import { Ui5DialogDomRef } from '@ui5/webcomponents-react/interfaces/Ui5DialogDomRef';
-// import { Ui5PopoverDomRef } from '@ui5/webcomponents-react/interfaces/Ui5PopoverDomRef';
-
-import { DialogDomRef as Ui5DialogDomRef } from '@ui5/webcomponents-react/webComponents/Dialog';
-import { PopoverDomRef as Ui5PopoverDomRef } from '@ui5/webcomponents-react/webComponents/Popover';
-
 import {
   MutableRefObject,
   ReactNode,
@@ -14,6 +8,10 @@ import {
   useState,
 } from 'react';
 import { createPortal, findDOMNode } from 'react-dom';
+import {
+  DialogDomRef as Ui5DialogDomRef,
+  PopoverDomRef as Ui5PopoverDomRef,
+} from '@ui5/webcomponents-react';
 
 type HTMLElRef = MutableRefObject<HTMLElement>;
 

@@ -1,8 +1,14 @@
-import { ComboBox, ComboBoxItem, ValueState } from '@ui5/webcomponents-react';
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { ComboBoxPropTypes } from '@ui5/webcomponents-react/webComponents/ComboBox';
+import {
+  ComboBox,
+  ComboBoxItem,
+  ComboBoxPropTypes,
+  ValueState,
+} from '@ui5/webcomponents-react';
+
 import { BaseFieldProps } from '../types/form/baseprops';
+
 export interface ComboBoxFieldProps extends BaseFieldProps, ComboBoxPropTypes {
   optionsData: any[];
   optionValueKey: string;
@@ -24,7 +30,7 @@ export const ComboBoxField = ({
 
   const getDefaultValue = (): string => {
     let defaultOptionValue: string = '';
-    optionsData.forEach((option) => {
+    optionsData.forEach(option => {
       if (
         optionSelectedValue &&
         optionSelectedValue !== '' &&
@@ -57,8 +63,8 @@ export const ComboBoxField = ({
               ? ValueState.Error
               : ValueState.None
           }
-          onChange={(e) => {
-            optionsData.find((option) => {
+          onChange={e => {
+            optionsData.find(option => {
               if (e.target.value !== '') {
                 if (option[optionValueKey] === e.target.value) {
                   const selectedData = JSON.stringify(option);

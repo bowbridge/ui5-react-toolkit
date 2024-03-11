@@ -1,7 +1,7 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { Slider } from '@ui5/webcomponents-react';
-import { SliderPropTypes } from '@ui5/webcomponents-react/webComponents/Slider';
+import { Slider, SliderPropTypes } from '@ui5/webcomponents-react';
+
 import { BaseFieldProps } from '../types/form/baseprops';
 
 export interface SliderFieldProps extends BaseFieldProps, SliderPropTypes {}

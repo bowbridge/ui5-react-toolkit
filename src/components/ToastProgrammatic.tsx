@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { ToastPlacement } from '@ui5/webcomponents-react';
 import { ToastContainer, ToastDisplayType } from '../containers/ToastContainer';
 
@@ -19,7 +19,7 @@ const dispatchToast = (
     if (element) document.body.removeChild(element);
   };
 
-  render(
+  createRoot(containerDomNode).render(
     <ToastContainer
       duration={duration}
       placement={placement}
@@ -27,8 +27,7 @@ const dispatchToast = (
       onEnd={removeElementFromBody}
     >
       {message}
-    </ToastContainer>,
-    containerDomNode
+    </ToastContainer>
   );
 };
 

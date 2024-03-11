@@ -1,13 +1,13 @@
 import React from 'react';
+import { Controller } from 'react-hook-form';
 import {
   MultiComboBox,
+  MultiComboBoxPropTypes,
   MultiComboBoxItem,
+  MultiComboBoxItemPropTypes,
   ValueState,
 } from '@ui5/webcomponents-react';
-import { Controller } from 'react-hook-form';
 
-import { MultiComboBoxPropTypes } from '@ui5/webcomponents-react/webComponents/MultiComboBox';
-import { MultiComboBoxItemPropTypes } from '@ui5/webcomponents-react/webComponents/MultiComboBoxItem';
 import { BaseFieldProps } from '../types/form/baseprops';
 
 export interface MultiComboBoxFieldProps
@@ -41,10 +41,10 @@ export const MultiComboBoxField = ({
       render={({ field }) => (
         <MultiComboBox
           style={innerStyle}
-          onSelectionChange={(e) => {
+          onSelectionChange={e => {
             let elements = e.detail.items as MultiComboBoxElement[];
             let selectedItems: any = [];
-            elements.forEach((element) => {
+            elements.forEach(element => {
               let data: any = {};
               data[optionValueKey] = element['text'];
               selectedItems.push(data);

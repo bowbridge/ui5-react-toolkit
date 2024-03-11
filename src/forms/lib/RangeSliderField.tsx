@@ -1,7 +1,7 @@
-import { RangeSlider } from '@ui5/webcomponents-react';
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { RangeSliderPropTypes } from '@ui5/webcomponents-react/webComponents/RangeSlider';
+import { RangeSlider, RangeSliderPropTypes } from '@ui5/webcomponents-react';
+
 import { BaseFieldProps } from '../types/form/baseprops';
 
 export interface RangeSliderFieldProps
@@ -30,7 +30,7 @@ export const RangeSliderField = ({
       render={({ field: { onChange, ...rest } }) => (
         <RangeSlider
           style={innerStyle}
-          onChange={(e) => {
+          onChange={e => {
             const element = (e.target as unknown) as RangeSliderElement;
             const data = {
               startValue: element.startValue,

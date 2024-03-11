@@ -1,4 +1,4 @@
-import { object, SchemaOf, string } from 'yup';
+import { object, ObjectSchema, string } from 'yup';
 
 import { createFormMetaData } from '../components/RenderForm';
 
@@ -31,11 +31,14 @@ type MarketingData = {
 
 export type MixedType = PersonalData & CompanyData & MarketingData & Misc;
 
-export const validationSchema: SchemaOf<
-  Pick<MixedType, 'name' | 'email' | 'country'>
-> = object({
+export const validationSchema: ObjectSchema<Pick<
+  MixedType,
+  'name' | 'email' | 'country'
+>> = object({
   name: string().required('Name Required'),
-  email: string().email().required('Email Required'),
+  email: string()
+    .email()
+    .required('Email Required'),
   country: string().required('Required Field'),
 });
 

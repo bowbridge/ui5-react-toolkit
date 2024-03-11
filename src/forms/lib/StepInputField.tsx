@@ -1,8 +1,11 @@
 import React from 'react';
-import { StepInput, ValueState } from '@ui5/webcomponents-react';
 import { Controller } from 'react-hook-form';
+import {
+  StepInput,
+  StepInputPropTypes,
+  ValueState,
+} from '@ui5/webcomponents-react';
 
-import { StepInputPropTypes } from '@ui5/webcomponents-react/webComponents/StepInput';
 import { BaseFieldProps } from '../types/form/baseprops';
 
 export interface StepInputFieldProps
@@ -38,7 +41,7 @@ export const StepInputField = ({
               ? ValueState.Error
               : ValueState.None
           }
-          onChange={(e) => {
+          onChange={e => {
             field.onChange(e.target.value);
           }}
           {...props}
