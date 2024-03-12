@@ -102,7 +102,7 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
 
     return (
       <FormProvider {...methods}>
-        <Form titleText={titleText} {...restFormProps}>
+        <Form titleText={titleText} {...restFormProps} onSubmit={(e) => e.preventDefault()}>
           {sections.map((section, index) => (
             <FormGroup
               key={index}
