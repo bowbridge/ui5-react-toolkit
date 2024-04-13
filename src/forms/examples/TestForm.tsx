@@ -9,7 +9,7 @@ export const TestForm = () => {
   const renderFormRef = useRef<RenderFormRef>(null);
   const [loading, setLoading] = useState(false);
 
-  const onSubmit: SubmitHandler<MixedType> = (data) => {
+  const onSubmit: SubmitHandler<MixedType> = data => {
     setTimeout(() => {
       setLoading(true);
     }, 0);

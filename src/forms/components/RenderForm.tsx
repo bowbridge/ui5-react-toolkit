@@ -68,15 +68,31 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
       },
     } = props;
 
+    const defaultValues = sections.reduce(
+      (result: { [p: string]: any }, currentValue) => {
+        const { fields } = currentValue;
+        for (const field of fields) {
+          const {
+            fieldProps: { fieldName, defaultValue },
+          } = field;
+          result[fieldName] = defaultValue;
+        }
+
+        return result;
+      },
+      {}
+    );
+
     const methods = useForm({
       ...(validationSchema && { resolver: yupResolver(validationSchema) }),
+      defaultValues,
     });
 
     const { setValue, reset } = methods;
 
     useImperativeHandle(ref, () => ({
       resetForm() {
-        reset();
+        reset(defaultValues);
       },
       submit() {
         methods.handleSubmit(onSubmit)();
@@ -89,7 +105,8 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
           section.fields.forEach(field => {
             setValue(
               field.fieldProps.fieldName,
-              editModeContent[field.fieldProps.fieldName]
+              editModeContent[field.fieldProps.fieldName],
+              {}
             );
           });
         });
@@ -102,7 +119,11 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
 
     return (
       <FormProvider {...methods}>
-        <Form titleText={titleText} {...restFormProps} onSubmit={(e) => e.preventDefault()}>
+        <Form
+          titleText={titleText}
+          {...restFormProps}
+          onSubmit={e => e.preventDefault()}
+        >
           {sections.map((section, index) => (
             <FormGroup
               key={index}

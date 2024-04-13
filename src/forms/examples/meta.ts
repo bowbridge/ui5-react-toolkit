@@ -71,6 +71,7 @@ export const formMetaData = createFormMetaData<MixedType>({
           },
           fieldProps: {
             fieldName: 'name',
+            defaultValue: '',
           },
         },
         {
@@ -89,13 +90,15 @@ export const formMetaData = createFormMetaData<MixedType>({
             required: true,
           },
           fieldProps: {
+            disabled: true,
+            defaultValue: 'germany',
             fieldName: 'country',
             optionValueKey: 'value',
             optionLabelKey: 'label',
-            optionSelectedValue: 'italy',
+            optionSelectedValue: 'germany',
             optionsData: [
               {
-                label: '',
+                label: 'Select a country',
                 value: '',
               },
               {
@@ -212,6 +215,7 @@ export const formMetaData = createFormMetaData<MixedType>({
           fieldProps: {
             fieldName: 'email',
             type: 'Email',
+            defaultValue: '',
           },
         },
         {
