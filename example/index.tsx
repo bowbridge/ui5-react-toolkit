@@ -1,17 +1,13 @@
-import 'react-app-polyfill/ie11';
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { SelectOption } from '../src/forms/examples/SelectOption';
+import ReactDOM from 'react-dom/client';
 import { TestForm } from '../src/forms/examples/TestForm';
-import { HooksTest } from '../src/temp/HooksTest';
+import { ThemeProvider } from '@ui5/webcomponents-react';
 const App = () => {
   return (
-    <>
-      {/* <HooksTest /> */}
-      {/*       <TestForm /> */}
-      <SelectOption />
-    </>
+    <ThemeProvider>
+      <TestForm />
+    </ThemeProvider>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.createRoot(document.getElementById('root')!).render(<App />);

@@ -6,7 +6,7 @@ import { FieldType, FieldPropsMap } from '../types/form/fieldmap';
 
 import { InputField } from '../lib/InputField';
 import { SwitchField } from '../lib/SwitchField';
-import { SelectField } from '../lib/SelectField';
+import { SelectFieldV2 } from '../lib/SelectField';
 import { CheckBoxField } from '../lib/CheckBoxField';
 import { StepInputField } from '../lib/StepInputField';
 import { SliderField } from '../lib/SliderField';
@@ -57,7 +57,7 @@ export const RenderField = (props: RenderFieldProps<FieldType>) => {
 
     return (
       <>
-        <SelectField methods={methods} {...fieldProps} />
+        <SelectFieldV2 methods={methods} {...fieldProps} />
       </>
     );
   }

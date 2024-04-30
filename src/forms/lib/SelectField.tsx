@@ -67,7 +67,7 @@ export const SelectField = ({
           valueStateMessage={
             <span>
               {methods.formState.errors[fieldName]?.message
-                ? methods.formState.errors[fieldName]?.message
+                ? methods.formState.errors[fieldName]?.message?.toString()
                 : ''}
             </span>
           }
@@ -89,6 +89,60 @@ export const SelectField = ({
                 {option[optionLabelKey]}
               </Option>
             ))}
+        </Select>
+      )}
+    />
+  );
+};
+
+export const SelectFieldV2 = ({
+  methods,
+  fieldName,
+  style,
+  optionsData,
+  optionLabelKey,
+  optionValueKey,
+  optionSelectedValue,
+  ...props
+}: SelectFieldProps) => {
+  const {
+    formState: { errors },
+  } = methods;
+
+  const innerStyle = {
+    ...style,
+  };
+
+  return (
+    <Controller
+      name={fieldName}
+      control={methods.control}
+      defaultValue={optionSelectedValue}
+      render={({ field }) => (
+        <Select
+          {...field}
+          style={innerStyle}
+          onChange={e => {
+            field.onChange(e.detail.selectedOption.value ?? '');
+          }}
+          valueStateMessage={
+            <span>
+              {errors[fieldName]?.message &&
+                errors[fieldName]?.message?.toString()}
+            </span>
+          }
+          valueState={errors[fieldName] ? ValueState.Error : ValueState.None}
+          {...props}
+        >
+          {optionsData.map((option, index) => (
+            <Option
+              key={index}
+              value={option[optionValueKey]}
+              selected={field.value === option[optionValueKey]}
+            >
+              {option[optionLabelKey]}
+            </Option>
+          ))}
         </Select>
       )}
     />

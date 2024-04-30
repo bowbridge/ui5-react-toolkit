@@ -53,9 +53,8 @@ export const MultiComboBoxField = ({
           }}
           valueStateMessage={
             <span>
-              {methods.formState.errors[fieldName]?.message
-                ? methods.formState.errors[fieldName]?.message
-                : ''}
+              {methods.formState.errors[fieldName]?.message &&
+                methods.formState.errors[fieldName]?.message?.toString()}
             </span>
           }
           valueState={
