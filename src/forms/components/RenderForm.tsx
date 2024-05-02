@@ -97,6 +97,9 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
       submit() {
         methods.handleSubmit(onSubmit)();
       },
+      setValue(fieldName: string, value: any) {
+        setValue(fieldName, value);
+      },
     }));
 
     useEffect(() => {
