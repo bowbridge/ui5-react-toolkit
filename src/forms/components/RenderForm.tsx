@@ -24,6 +24,7 @@ import '@ui5/webcomponents/dist/features/InputElementsFormSupport.js';
 export type RenderFormRef = {
   resetForm: () => void;
   submit: () => void;
+  setValue: (fieldName: string, value: any) => void;
 };
 export interface RenderFormProps {
   metaData: FormMetaData;
