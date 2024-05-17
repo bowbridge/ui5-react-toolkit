@@ -99,6 +99,7 @@ export const SelectFieldV2 = ({
   methods,
   fieldName,
   style,
+  onChange,
   optionsData,
   optionLabelKey,
   optionValueKey,
@@ -124,6 +125,7 @@ export const SelectFieldV2 = ({
           style={innerStyle}
           onChange={e => {
             field.onChange(e.detail.selectedOption.value ?? '');
+            if (onChange) onChange(e);
           }}
           valueStateMessage={
             <span>
