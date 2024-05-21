@@ -25,7 +25,9 @@ export type RenderFormRef = {
   resetForm: () => void;
   submit: () => void;
   setValue: (fieldName: string, value: any) => void;
+  getValues: () => any;
 };
+
 export interface RenderFormProps {
   metaData: FormMetaData;
   validationSchema?: ObjectSchema<any>;
@@ -89,7 +91,7 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
       defaultValues,
     });
 
-    const { setValue, reset } = methods;
+    const { setValue, getValues, reset } = methods;
 
     useImperativeHandle(ref, () => ({
       resetForm() {
@@ -100,6 +102,9 @@ export const RenderForm = forwardRef<RenderFormRef, RenderFormProps>(
       },
       setValue(fieldName: string, value: any) {
         setValue(fieldName, value);
+      },
+      getValues() {
+        return getValues();
       },
     }));
 

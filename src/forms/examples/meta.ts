@@ -25,6 +25,7 @@ type CompanyData = {
 
 type MarketingData = {
   email: string;
+  password: string;
   companyEmail: string;
   subscription: boolean;
 };
@@ -215,6 +216,18 @@ export const formMetaData = createFormMetaData<MixedType>({
           fieldProps: {
             fieldName: 'email',
             type: 'Email',
+            defaultValue: '',
+          },
+        },
+        {
+          fieldtype: 'input',
+          labelProps: {
+            fieldLabel: 'Password',
+            required: true,
+          },
+          fieldProps: {
+            fieldName: 'password',
+            type: 'Password',
             defaultValue: '',
           },
         },
