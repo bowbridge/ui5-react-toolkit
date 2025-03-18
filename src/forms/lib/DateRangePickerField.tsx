@@ -22,6 +22,8 @@ export const DateRangePickerField = ({
     ...style,
   };
 
+  const errorMessage = String(methods.formState.errors[fieldName]?.message || '');
+
   return (
     <Controller
       name={fieldName}
@@ -31,9 +33,7 @@ export const DateRangePickerField = ({
           style={innerStyle}
           valueStateMessage={
             <span>
-              {methods.formState.errors[fieldName]?.message
-                ? methods.formState.errors[fieldName]?.message
-                : ''}
+              {errorMessage}
             </span>
           }
           valueState={

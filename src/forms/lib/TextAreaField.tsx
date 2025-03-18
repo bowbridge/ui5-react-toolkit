@@ -20,6 +20,8 @@ export const TextAreaField = ({
     ...style,
   };
 
+  const errorMessage = String(methods.formState.errors[fieldName]?.message || '');
+
   return (
     <Controller
       name={fieldName}
@@ -29,9 +31,7 @@ export const TextAreaField = ({
           style={innerStyle}
           valueStateMessage={
             <span>
-              {methods.formState.errors[fieldName]?.message
-                ? methods.formState.errors[fieldName]?.message
-                : ''}
+              {errorMessage}
             </span>
           }
           valueState={
