@@ -42,6 +42,8 @@ export const ComboBoxField = ({
     return defaultOptionValue;
   };
 
+  const errorMessage = String(methods.formState.errors[fieldName]?.message || '');
+
   return (
     <Controller
       name={fieldName}
@@ -53,9 +55,7 @@ export const ComboBoxField = ({
           value={optionSelectedValue}
           valueStateMessage={
             <span>
-              {methods.formState.errors[fieldName]?.message
-                ? methods.formState.errors[fieldName]?.message
-                : ''}
+              {errorMessage}
             </span>
           }
           valueState={
