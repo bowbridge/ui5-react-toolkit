@@ -19,8 +19,6 @@ import { ObjectSchema } from 'yup';
 import { RenderField } from './RenderField';
 import { FieldMetaDataType } from '../types/form/fieldmap';
 
-import '@ui5/webcomponents/dist/features/InputElementsFormSupport.js';
-
 export type RenderFormRef = {
   resetForm: () => void;
   submit: () => void;
